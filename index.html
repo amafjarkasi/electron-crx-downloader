@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRX Downloader</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Fixed Header -->
+    <header class="app-header">
+      <div class="drag-region"></div>
+      <h1>CRX Downloader</h1>
+      <div class="header-controls">
+        <button id="minimize-btn" class="window-control" title="Minimize">
+          <i class="fa-solid fa-window-minimize"></i>
+        </button>
+        <button id="maximize-btn" class="window-control" title="Maximize">
+          <i class="fa-regular fa-square"></i>
+        </button>
+        <button id="close-btn" class="window-control close" title="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Fixed Tab Navigation Area -->
+    <div class="fixed-header-area">
+      <div class="tab-navigation" id="tab-navigation">
+        <button class="tab-button active" data-tab="download">Download</button>
+        <button class="tab-button" data-tab="history">History</button>
+      </div>
+    </div>
+
+    <!-- Scrollable Content Area -->
+    <main class="app-content">
+      <!-- Download Tab Content -->
+      <div class="tab-content active" id="download-tab">
+        <div class="card">
+          <div class="card-header">
+            <h2>Download Chrome Extension</h2>
+          </div>
+          <div class="card-body">
+            <div class="input-group">
+              <label for="extension-id">Chrome Extension ID</label>
+              <input type="text" id="extension-id" placeholder="e.g. gighmmpiobklfepjocnamgkkbiglidom">
+              <p class="help-text">Find the ID in the Chrome Web Store URL: chrome.google.com/webstore/detail/[name]/[ID]</p>
+            </div>
+            
+            <div class="input-group">
+              <label for="output-dir">Output Directory</label>
+              <div class="directory-selector">
+                <input type="text" id="output-dir" placeholder="Select a directory..." readonly>
+                <button id="browse-btn" class="btn btn-secondary">Browse</button>
+              </div>
+            </div>
+            
+            <button id="download-btn" class="btn btn-primary">
+              <i class="fa-solid fa-download"></i> Download & Extract
+            </button>
+          </div>
+        </div>
+        
+        <div class="card hidden" id="results-card">
+          <div class="card-header">
+            <h2>Results</h2>
+          </div>
+          <div class="card-body" id="results-content">
+            <!-- Results will be displayed here -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- History Tab Content -->
+      <div class="tab-content" id="history-tab">
+        <div class="card">
+          <div class="card-header">
+            <h2>Download History</h2>
+          </div>
+          <div class="card-body">
+            <div id="history-list" class="history-list">
+              <!-- History items will be displayed here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Loader -->
+  <div class="loader hidden" id="loader">
+    <div class="spinner"></div>
+    <p>Downloading and extracting extension...</p>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
