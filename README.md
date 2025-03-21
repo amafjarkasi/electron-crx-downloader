@@ -8,6 +8,7 @@ A modern Electron application for downloading and extracting Chrome extensions w
 - 🗂️ Extract extensions to specific directories
 - 📝 Track download history with timestamps
 - 🔄 One-click redownloading from history
+- 📂 Quick access to extension folders via File Explorer
 - 🎨 Modern UI with custom title bar and tabs
 - 💻 Cross-platform support
 - 🚀 Fast extraction using AdmZip
@@ -62,6 +63,7 @@ npm run build
    - Switch to the History tab
    - See all previously downloaded extensions with timestamps
    - Click the download icon to redownload any extension
+   - Click the folder icon to open the extension directory in File Explorer
    - History is automatically saved and persists between sessions
 
 ## 🛠️ Technical Features
