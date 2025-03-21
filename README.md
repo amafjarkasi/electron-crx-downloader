@@ -31,8 +31,8 @@ A modern Electron application for downloading and extracting Chrome extensions w
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/yourusername/crx-electron.git
-cd crx-electron
+git clone https://github.com/amafjarkasi/electron-crx-downloader.git
+cd electron-crx-downloader
 npm install
 ```
 
