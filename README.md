@@ -1,4 +1,4 @@
-# CRX Downloader 🔽
+# Electron CRX Downloader 🔽
 
 A modern Electron application for downloading and extracting Chrome extensions with a sleek user interface and history tracking.
 
