@@ -68,7 +68,7 @@ tabButtons.forEach(button => {
     
     // If history tab is clicked, refresh the history list
     if (tabId === 'history') {
-      renderHistoryList();
+      updateHistoryList();
     }
   });
 });
@@ -183,62 +183,69 @@ function addToHistory(extensionId, outputPath, filesExtracted) {
   localStorage.setItem('downloadHistory', JSON.stringify(downloadHistory));
 }
 
-// Render history list
-function renderHistoryList() {
-  // Clear current list
+// Update history list
+function updateHistoryList() {
+  const historyList = document.getElementById('history-list');
   historyList.innerHTML = '';
-  
+
   if (downloadHistory.length === 0) {
     historyList.innerHTML = '<div class="empty-history-message">No download history yet.</div>';
     return;
   }
-  
-  // Create history items
-  downloadHistory.forEach(item => {
+
+  downloadHistory.forEach((item, index) => {
     const historyItem = document.createElement('div');
     historyItem.className = 'history-item';
     
-    const date = new Date(item.timestamp);
-    const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+    const timestamp = new Date(item.timestamp).toLocaleString();
+    const extensionPath = `${item.outputPath}\\${item.id}`;
     
     historyItem.innerHTML = `
-      <div class="history-icon">
-        <i class="fa-solid fa-puzzle-piece"></i>
-      </div>
-      <div class="history-details">
-        <div class="history-title">${item.name}</div>
-        <div class="history-meta">
-          <span><i class="fa-solid fa-calendar"></i> ${formattedDate}</span>
-          <span><i class="fa-solid fa-file"></i> ${item.filesExtracted} files</span>
+      <div class="history-content">
+        <div class="history-details">
+          <div class="history-main">
+            <strong>Extension ID:</strong> ${item.id}
+          </div>
+          <div class="history-info">
+            <span><strong>Downloaded:</strong> ${timestamp}</span>
+            <span><strong>Files:</strong> ${item.filesExtracted}</span>
+          </div>
+          <div class="history-path">
+            <strong>Path:</strong> ${extensionPath}
+          </div>
         </div>
-        <div class="history-id">${item.id}</div>
-      </div>
-      <div class="history-actions">
-        <button class="btn btn-primary btn-icon download-again" data-id="${item.id}" title="Download Again">
-          <i class="fa-solid fa-download"></i>
-        </button>
+        <div class="history-actions">
+          <button class="icon-button open-folder" title="Open in File Explorer" data-path="${extensionPath}">
+            <i class="fa-solid fa-folder-open"></i>
+          </button>
+          <button class="icon-button redownload" title="Download Again" data-index="${index}">
+            <i class="fa-solid fa-download"></i>
+          </button>
+        </div>
       </div>
     `;
-    
-    historyList.appendChild(historyItem);
-    
-    // Add event listener to the download again button
-    const downloadAgainBtn = historyItem.querySelector('.download-again');
-    downloadAgainBtn.addEventListener('click', () => {
-      // Set the extension ID and switch to download tab
-      extensionIdInput.value = item.id;
-      outputDirInput.value = item.outputPath;
-      
-      // Switch to download tab
-      tabButtons.forEach(btn => btn.classList.remove('active'));
-      tabContents.forEach(content => content.classList.remove('active'));
-      
-      document.querySelector('[data-tab="download"]').classList.add('active');
-      document.getElementById('download-tab').classList.add('active');
-      
-      // Scroll to top
-      window.scrollTo(0, 0);
+
+    // Add click handler for redownload button
+    const redownloadBtn = historyItem.querySelector('.redownload');
+    redownloadBtn.addEventListener('click', () => {
+      const historyEntry = downloadHistory[index];
+      downloadExtension(historyEntry.id, historyEntry.outputPath);
     });
+
+    // Add click handler for open folder button
+    const openFolderBtn = historyItem.querySelector('.open-folder');
+    openFolderBtn.addEventListener('click', async () => {
+      try {
+        const result = await window.electronAPI.openDirectory(extensionPath);
+        if (!result.success) {
+          console.error('Failed to open directory:', result.error);
+        }
+      } catch (error) {
+        console.error('Error opening directory:', error);
+      }
+    });
+
+    historyList.appendChild(historyItem);
   });
 }
 
@@ -317,7 +324,7 @@ function init() {
   }
   
   // Render history list
-  renderHistoryList();
+  updateHistoryList();
 }
 
 // Initialize the app when the DOM is loaded

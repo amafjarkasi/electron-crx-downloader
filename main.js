@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const https = require('https');
@@ -133,6 +133,16 @@ ipcMain.handle('download-extension', async (event, extensionId, outputDir) => {
   } catch (error) {
     console.error('Error downloading extension:', error);
     throw new Error(`Failed to download or extract extension: ${error.message}`);
+  }
+});
+
+// IPC handler for opening directory in file explorer
+ipcMain.handle('open-directory', async (event, dirPath) => {
+  try {
+    await shell.openPath(dirPath);
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
   }
 });
 
