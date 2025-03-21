@@ -1,35 +1,31 @@
 {
-  "name": "crx-electron",
+  "name": "electron-crx-downloader",
   "version": "1.0.0",
-  "description": "Electron app to download and extract Chrome extensions",
+  "description": "A modern Electron application for downloading and extracting Chrome extensions with a sleek user interface and history tracking",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "electron-builder"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amafjarkasi/electron-crx-downloader.git"
   },
   "keywords": [
     "electron",
     "chrome",
     "extension",
+    "downloader",
     "crx"
   ],
-  "author": "",
+  "author": "AJ",
   "license": "ISC",
   "dependencies": {
     "adm-zip": "^0.5.10",
-    "crx3": "^1.1.3",
-    "electron": "^35.0.2",
-    "electron-builder": "^25.1.8"
+    "electron-store": "^8.1.0"
   },
-  "build": {
-    "appId": "com.crx.downloader",
-    "productName": "CRX Downloader",
-    "directories": {
-      "output": "dist"
-    },
-    "win": {
-      "target": "nsis"
-    }
+  "devDependencies": {
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1"
   }
 }
