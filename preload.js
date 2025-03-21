@@ -6,9 +6,9 @@ contextBridge.exposeInMainWorld(
   'electronAPI',
   {
     // Window controls
-    minimizeWindow: () => ipcRenderer.invoke('minimize-window'),
-    maximizeWindow: () => ipcRenderer.invoke('maximize-window'),
-    closeWindow: () => ipcRenderer.invoke('close-window'),
+    minimizeWindow: () => ipcRenderer.send('minimize-window'),
+    maximizeWindow: () => ipcRenderer.send('maximize-window'),
+    closeWindow: () => ipcRenderer.send('close-window'),
     
     // Directory selection
     selectDirectory: () => ipcRenderer.invoke('select-directory'),
@@ -16,9 +16,6 @@ contextBridge.exposeInMainWorld(
     
     // Extension download
     downloadExtension: (extensionId, outputDir) => 
-      ipcRenderer.invoke('download-extension', extensionId, outputDir),
-    
-    // Directory opening
-    openDirectory: (dirPath) => ipcRenderer.invoke('open-directory', dirPath)
+      ipcRenderer.invoke('download-extension', extensionId, outputDir)
   }
 );

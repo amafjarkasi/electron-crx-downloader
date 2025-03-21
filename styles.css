@@ -12,7 +12,6 @@
   --error-color: #ef4444;
   --header-bg: #2f3241;
   --header-text: #ffffff;
-  --hover-bg: #f9fafb;
 }
 
 * {
@@ -438,45 +437,6 @@ input[type="text"]:focus {
 .history-actions {
   display: flex;
   gap: 0.5rem;
-  align-items: center;
-}
-
-.icon-button {
-  background: transparent;
-  border: none;
-  color: var(--text-light);
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.icon-button:hover {
-  background-color: var(--hover-bg);
-  color: var(--primary-color);
-}
-
-.icon-button i {
-  font-size: 1rem;
-}
-
-.open-folder {
-  color: var(--text-light);
-}
-
-.open-folder:hover {
-  color: var(--primary-color);
-}
-
-.redownload {
-  color: var(--text-light);
-}
-
-.redownload:hover {
-  color: var(--primary-color);
 }
 
 .empty-history-message {
